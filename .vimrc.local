@@ -1,0 +1,26 @@
+autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType javascript.jsx set tabstop=2|set shiftwidth=2|set expandtab
+
+set listchars=tab:\|\
+set list
+
+" tab and shift tab behavior, indent and dedent
+" for command mode
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+" for insert mode
+inoremap <S-Tab> <C-d>
+" for visual mode
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run lint --'
