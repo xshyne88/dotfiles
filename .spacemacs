@@ -31,50 +31,59 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ruby-on-rails
+     (osx :variables osx-command-as       'hyper
+          osx-option-as        'meta
+          osx-control-as       'control
+          osx-function-as      nil
+          osx-right-command-as 'left
+          osx-right-option-as  'left
+          osx-right-control-as 'left
+          osx-swap-option-and-command nil)
+     vimscript
      yaml
+     ruby-on-rails
      (ruby :variables ruby-test-runner 'rspec)
      (ruby :variables ruby-enable-enh-ruby-mode t)
-     vimscript
+     (ruby :variables ruby-version-manager 'rvm)
+     typescript
+     helm
+     html
+     auto-completion
      markdown
      erlang
      elixir
      javascript
-     go
-     sql
-     trello
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     helm
+     (go :variables go-backend 'go-mode)
+     ;; (go :variables go-backend 'lsp)
+     (go :variables go-tab-width 2)
+     ;; (go :variables go-format-before-save t)
+     (go :variables godoc-at-point-function 'godoc-gogetdoc)
      auto-completion
-     ;; better-defaults
+     better-defaults
      emacs-lisp
      git
-     react
+     org
+     emacs-lisp
+     
+
+
+
+
+react
      rust
-     ;; markdown
-     ;; or
-     (shell :variables
-     shell-default-shell 'ansi-term
-     shell-default-height 30
-     shell-default-term-shell "/bin/zsh"
-     shell-default-position 'bottom)
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     syntax-checking
-     ;; version-control
      themes-megapack
+     (shell :variables
+            shell-default-shell 'ansi-term
+            shell-default-height 30
+            shell-default-term-shell "/bin/zsh"
+            shell-default-position 'bottom)
+     syntax-checking
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(add-node-modules-path prettier-js)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -130,7 +139,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 'official
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -142,26 +151,23 @@ values."
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'elixir-mode
+   dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacegray
+   dotspacemacs-themes '(
+                         hemisu-dark
+                         sanityinc-tomorrow-eighties
+                         ujelly
+                         spacegray
                          spacemacs-dark
-                         sunny-day
-                         fogus
-                         heroku
-                         planet
-                         sanityinc-tomorrow-bright
-                         deeper-blue
-                         underwater
-                         noctilux)
+                         spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 10
+   dotspacemacs-default-font '("Source Code Pro for Powerline"
+                               :size 18
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -245,7 +251,7 @@ values."
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil to boost the loading time. (default t)
-   dotspacemacs-loading-progress-bar nil
+   dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -255,11 +261,11 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 88
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -304,7 +310,7 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -322,18 +328,19 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-  (setq recentf-max-menu-items 25)
-  (setq-default git-magit-status-fullscreen t)
-  (setq-default git-enable-magit-svn-plugin t)
-  (global-git-commit-mode t)
-  (add)
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  )
+  (setq-default git-magit-status-fullscreen t)
+  (setq-default git-enable-magit-svn-plugin t)
+  ;; (global-git-commit-mode t)
+;; Enable eslint checker for web-mode
+;; Enable flycheck globally
+
+)
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -343,13 +350,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  (spacemacs/toggle-transparency)
 
-  ;; temp fix because of asdf package manager
-  (eval-after-load "elixir-mode"
-    '(defun elixir-format--mix-executable ()
-       (string-trim-right (shell-command-to-string "asdf which mix"))))
-
-  ;; ESLINT FIX ON SAVE
   (defun eslint-fix-file ()
     (interactive)
     (message "eslint --fixing the file" (buffer-file-name))
@@ -363,27 +365,55 @@ you should place your code here."
   ;; (add-hook 'js2-mode-hook
   ;;           (lambda ()
   ;;             (add-hook 'after-save-hook #'eslint-fix-file-and-revert)))
-  (add-hook 'elixir-mode-hook
-            (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
 
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint json-jsonlist)))
+
+  (setq-default
+   standard-indent 2
+   tab-width 2
+   indent-tabs-mode nil
+   js-indent-level 2
+   js2-basic-offset 2
+   js2-strict-semi-warning nil
+   js2-missing-semi-one-line-override nil
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-indent-style 2
+   )
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+  (add-to-list 'projectile-globally-ignored-directories "yarn.lock")
+  (add-to-list 'projectile-globally-ignored-directories "package_json.lock")
+  (add-to-list 'projectile-globally-ignored-directories "node_modules")
+
+  (add-to-list 'auto-mode-alist '("\\.jsx?$" . web-mode)) ;; auto-enable for .js/.jsx files
+  (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode)) ;; auto-enable for .js/.jsx files
   (spacemacs/toggle-indent-guide-globally-on)
+  (add-hook 'go-mode 'clean-aindent-mode-hook)
+  (clean-aindent-mode -1)
+
   (global-linum-mode)
-  ;; (global-set-key (kbd "C-c f") 'elixir-format)
-  (global-set-key (kbd "C-=") 'text-scale-increase)
-  (global-set-key (kbd "C--") 'text-scale-decrease)
-  (global-set-key (kbd "C-0") 'text-scale-mode)
+  (define-key evil-normal-state-map (kbd "s-d") 'evil-scroll-down)
+  (define-key evil-normal-state-map (kbd "s-u") 'evil-scroll-up)
+  (global-set-key (kbd "C-=") 'zoom-frm-in)
+  (global-set-key (kbd "C--") 'zoom-frm-out)
+  (global-set-key (kbd "C-0") 'zoom-frm-unzoom)
+  (global-set-key (kbd "M-j") 'hippie-expand)
   )
-;; (setq rufo-enable-format-on-save t)
-(add-to-list 'special-display-regexps "\\`Alchemist ")
-;; (add-to-list 'display-buffer-alist
-;;              `(,(rx bos (or "*alchemist test report*"
-;;                             "*alchemist mix*"
-;;                             "*alchemist help*"))
-;;                (display-buffer-reuse-window
-;;                 display-buffer-in-side-window)
-;;                (reusable-frames . visible)
-;;                (side            . right)
-;;                (window-width   . 0.5)))
+(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+
+(defun web-mode-init-prettier-hook ()
+  (add-node-modules-path)
+  (prettier-js-mode))
+
+(add-hook 'web-mode-hook  'web-mode-init-prettier-hook)
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -393,42 +423,87 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
    [default bold shadow italic underline bold bold-italic bold])
- '(background-color "#202020")
- '(background-mode dark)
- '(beacon-color "#d54e53")
- '(cursor-color "#cccccc")
+ '(ansi-color-names-vector
+   (vector "#002451" "#ff9da4" "#d1f1a9" "#ffeead" "#bbdaff" "#ebbbff" "#99ffff" "#ffffff"))
+ '(beacon-color "#ff9da4")
+ '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
  '(custom-safe-themes
    (quote
-    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "13d20048c12826c7ea636fbe513d6f24c0d43709a761052adbca052708798ce3" "e8825f26af32403c5ad8bc983f8610a4a4786eb55e3a363fa9acb48e0677fe7e" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "d71f6c718dab453b625c407adc50479867a557668d5c21599a1ebea204d9e4f3" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "7824eb15543c5c57c232c131ca64c4f25bfeeeda6744f71b999787a9172fa74e" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "8d805143f2c71cfad5207155234089729bb742a1cb67b7f60357fdd952044315" "713f898dd8c881c139b62cf05b7ac476d05735825d49006255c0a31f9a4f46ab" "d600c677f1777c1e4bfb066529b5b73c0179d0499dd4ffa3f599a0fb0cfbd501" "5a21604c4b1f2df98e67cda2347b8f42dc9ce471a48164fcb8d3d52c3a0d10be" "d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "621595cbf6c622556432e881945dda779528e48bb57107b65d428e61a8bb7955" "af4dc574b2f96f5345d55b98af024e2db9b9bbf1872b3132bc66dffbf5e1ba1d" "0bff60fb779498e69ea705825a2ca1a5497a4fccef93bf3275705c2d27528f2f" "2f57ee6507f30d3228cdddadd0150e7b2fd85dd7c818c2d6485888c7249c37e8" "4138944fbed88c047c9973f68908b36b4153646a045648a22083bd622d1e636d" "3e335d794ed3030fefd0dbd7ff2d3555e29481fe4bbb0106ea11c660d6001767" "7f9dc0c7bc8e5b4a1b9904359ee449cac91fd89dde6aca7a45e4ed2e4985664c" "77bd459212c0176bdf63c1904c4ba20fce015f730f0343776a1a14432de80990" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" "862a0ccc73c12df4df325427f9285fa6a5bbba593a77257f43b01c84269f51b0" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "58c6711a3b568437bab07a30385d34aacf64156cc5137ea20e799984f4227265" "6124d0d4205ae5ab279b35ac6bc6a180fbb5ca594616e1e9a22097024c0a8a99" "dbade2e946597b9cda3e61978b5fcc14fa3afa2d3c4391d477bdaeff8f5638c5" "450f3382907de50be905ae8a242ecede05ea9b858a8ed3cc8d1fbdf2d57090af" "2f4f50d98073c01038b518066840638455657dc91dd1a225286d573926f36914" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "8ffdc8c66ceeaf7921f4510a70d808f01b303e6b4d177c947b442e80d4228678" "d7383f47263f7969baf3856ab8b3df649eb77eafdff0c5731bee2ad18e0faed2" "218bc69ef19fd1f681cdded7b85924e41242fe87a6033df823499822f1397f1a" "e61752b5a3af12be08e99d076aedadd76052137560b7e684a8be2f8d2958edc3" "e0d42a58c84161a0744ceab595370cbe290949968ab62273aed6212df0ea94b4" "7023f8768081cd1275f7fd1cd567277e44402c65adfe4dc10a3a908055ed634d" "604ac011fc9bd042bc041330b3a5e5a86e764a46f7e9fe13e2a1f9f83bf44327" "bb08c73af94ee74453c90422485b29e5643b73b05e8de029a6909af6a3fb3f58" "a622aaf6377fe1cd14e4298497b7b2cae2efc9e0ce362dade3a58c16c89e089c" "cab317d0125d7aab145bc7ee03a1e16804d5abdfa2aa8738198ac30dc5f7b569" "8dce5b23232d0a490f16d62112d3abff6babeef86ae3853241a85856f9b0a6e7" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "8a97050c9dd0af1cd8c3290b061f4b6032ccf2044ddc4d3c2c39e516239b2463" "72085337718a3a9b4a7d8857079aa1144ea42d07a4a7696f86627e46ac52f50b" "d74fe1508cff43708fa2f97c4bf58d19f0e002b2e0c92bf958bf483113b7d89d" "eb7be1648009af366d83f855191057bdc09348a2d9353db31da03b1cdec50cc5" "987b709680284a5858d5fe7e4e428463a20dfabe0a6f2a6146b3b8c7c529f08b" "1dd7b369ab51f00e91b6a990634017916e7bdeb64002b4dda0d7a618785725ac" "89536596ee5bdc5ef9ea3d3d5b515ea616285fa9274c836263024f1993f6b3dd" default)))
+    ("8a97050c9dd0af1cd8c3290b061f4b6032ccf2044ddc4d3c2c39e516239b2463" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" "26d49386a2036df7ccbe802a06a759031e4455f07bda559dcf221f53e8850e69" "7feeed063855b06836e0262f77f5c6d3f415159a98a9676d549bfeb6c49637c4" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" "cdd26fa6a8c6706c9009db659d2dffd7f4b0350f9cc94e5df657fa295fffec71" "39dd7106e6387e0c45dfce8ed44351078f6acd29a345d8b22e7b8e54ac25bac4" "585942bb24cab2d4b2f74977ac3ba6ddbd888e3776b9d2f993c5704aa8bb4739" "c1fb68aa00235766461c7e31ecfc759aa2dd905899ae6d95097061faeb72f9ee" "2f4f50d98073c01038b518066840638455657dc91dd1a225286d573926f36914" "a2cde79e4cc8dc9a03e7d9a42fabf8928720d420034b66aecc5b665bbf05d4e9" "3fa65d60abd566321f93d1354f91dedae8ab795bb688a421c69e2e0f7fa3c9bc" "3cd28471e80be3bd2657ca3f03fbb2884ab669662271794360866ab60b6cb6e6" "c48551a5fb7b9fc019bf3f61ebf14cf7c9cdca79bcb2a4219195371c02268f11" "4138944fbed88c047c9973f68908b36b4153646a045648a22083bd622d1e636d" "e0d42a58c84161a0744ceab595370cbe290949968ab62273aed6212df0ea94b4" "72a81c54c97b9e5efcc3ea214382615649ebb539cb4f2fe3a46cd12af72c7607" "5a0eee1070a4fc64268f008a4c7abfda32d912118e080e18c3c865ef864d1bea" "e9776d12e4ccb722a2a732c6e80423331bcb93f02e089ba2a4b02e85de1cf00e" "8f97d5ec8a774485296e366fdde6ff5589cf9e319a584b845b6f7fa788c9fa9a" "63af2870d82065ce90d4c34054aa0a0e524824e9865af9f90f3d6987e61d756a" "cdb4ffdecc682978da78700a461cdc77456c3a6df1c1803ae2dd55c59fa703e3" "4e5e58e42f6f37920b95a8502f488928b3dab9b6cc03d864e38101ce36ecb968" "d600c677f1777c1e4bfb066529b5b73c0179d0499dd4ffa3f599a0fb0cfbd501" "de9fa4b3614611bed2fe75e105bd0d37542924b977299736f158dd4d7343c666" "0598c6a29e13e7112cfbc2f523e31927ab7dce56ebb2016b567e1eff6dc1fd4f" "d7383f47263f7969baf3856ab8b3df649eb77eafdff0c5731bee2ad18e0faed2" "fad9c3dbfd4a889499f6921f54f68de8857e6846a0398e89887dbe5f26b591c0" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "450f3382907de50be905ae8a242ecede05ea9b858a8ed3cc8d1fbdf2d57090af" "628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "3d5ef3d7ed58c9ad321f05360ad8a6b24585b9c49abcee67bdcbb0fe583a6950" "341b2570a9bbfc1817074e3fad96a7eff06a75d8e2362c76a2c348d0e0877f31" "621595cbf6c622556432e881945dda779528e48bb57107b65d428e61a8bb7955" "1dd7b369ab51f00e91b6a990634017916e7bdeb64002b4dda0d7a618785725ac" "2f57ee6507f30d3228cdddadd0150e7b2fd85dd7c818c2d6485888c7249c37e8" "8d805143f2c71cfad5207155234089729bb742a1cb67b7f60357fdd952044315" default)))
+ '(diary-entry-marker (quote font-lock-variable-name-face))
+ '(emms-mode-line-icon-image-cache
+   (quote
+    (image :type xpm :ascent center :data "/* XPM */
+static char *note[] = {
+/* width height num_colors chars_per_pixel */
+\"    10   11        2            1\",
+/* colors */
+\". c #1fb3b3\",
+\"# c None s None\",
+/* pixels */
+\"###...####\",
+\"###.#...##\",
+\"###.###...\",
+\"###.#####.\",
+\"###.#####.\",
+\"#...#####.\",
+\"....#####.\",
+\"#..######.\",
+\"#######...\",
+\"######....\",
+\"#######..#\" };")))
  '(evil-want-Y-yank-to-eol t)
+ '(fci-rule-color "#003f8e" t)
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
- '(foreground-color "#cccccc")
  '(frame-background-mode (quote dark))
- '(org-trello-current-prefix-keybinding "C-c o")
+ '(gnus-logo-colors (quote ("#528d8d" "#c0c0c0")))
+ '(gnus-mode-line-image-cache
+   (quote
+    (image :type xpm :ascent center :data "/* XPM */
+static char *gnus-pointer[] = {
+/* width height num_colors chars_per_pixel */
+\"    18    13        2            1\",
+/* colors */
+\". c #1fb3b3\",
+\"# c None s None\",
+/* pixels */
+\"##################\",
+\"######..##..######\",
+\"#####........#####\",
+\"#.##.##..##...####\",
+\"#...####.###...##.\",
+\"#..###.######.....\",
+\"#####.########...#\",
+\"###########.######\",
+\"####.###.#..######\",
+\"######..###.######\",
+\"###....####.######\",
+\"###..######.######\",
+\"###########.######\" };")))
  '(package-selected-packages
    (quote
-    (rubocop enh-ruby-mode projectile-rails inflections feature-mode rufo yaml-mode rvm ruby-tools ruby-test-mode rspec-mode robe rbenv rake minitest chruby bundler inf-ruby protobuf-mode flycheck-dialyxir flycheck-crystal flycheck-dialyzer lsp-elixir org-trello request-deferred deferred eglot lsp-mode vimrc-mode dactyl-mode magit-popup skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode haml-mode gitignore-mode pos-tip flycheck magit transient git-commit with-editor autothemer web-completion-data dash-functional tern go-mode markdown-mode rust-mode yasnippet company elixir-mode auto-complete zenburn-theme zen-and-art-theme xterm-color ws-butler winum white-sand-theme which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toml-mode toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme sql-indent spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme scss-mode sass-mode reverse-theme restart-emacs rebecca-theme rainbow-delimiters railscasts-theme racer purple-haze-theme pug-mode professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el paradox orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme ob-elixir noctilux-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio go-guru go-eldoc gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md gandalf-theme fuzzy flycheck-rust flycheck-pos-tip flycheck-mix flycheck-credo flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help erlang emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme diminish define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-web company-tern company-statistics company-go column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode clues-theme clean-aindent-mode cherry-blossom-theme cargo busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes alchemist aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+    (protobuf-mode go-imports gotest heimsu-dark-theme flymd reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl prettier-js add-node-modules-path tide typescript-mode vimrc-mode dactyl-mode yaml-mode zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme spacegray-theme xterm-color web-mode web-beautify unfill toml-mode tagedit smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv racer pug-mode projectile-rails rake inflections orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download ob-elixir mwim multi-term mmm-mode minitest markdown-toc magit-gitflow magit-popup livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc htmlize helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck-mix flycheck-credo flycheck feature-mode evil-magit magit transient git-commit with-editor eshell-z eshell-prompt-extras esh-help erlang enh-ruby-mode emmet-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-go go-mode coffee-mode chruby cargo markdown-mode rust-mode bundler inf-ruby auto-yasnippet yasnippet alchemist company elixir-mode ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
-    ((20 . "#d54e53")
-     (40 . "#e78c45")
-     (60 . "#e7c547")
-     (80 . "#b9ca4a")
-     (100 . "#70c0b1")
-     (120 . "#7aa6da")
-     (140 . "#c397d8")
-     (160 . "#d54e53")
-     (180 . "#e78c45")
-     (200 . "#e7c547")
-     (220 . "#b9ca4a")
-     (240 . "#70c0b1")
-     (260 . "#7aa6da")
-     (280 . "#c397d8")
-     (300 . "#d54e53")
-     (320 . "#e78c45")
-     (340 . "#e7c547")
-     (360 . "#b9ca4a"))))
+    ((20 . "#ff9da4")
+     (40 . "#ffc58f")
+     (60 . "#ffeead")
+     (80 . "#d1f1a9")
+     (100 . "#99ffff")
+     (120 . "#bbdaff")
+     (140 . "#ebbbff")
+     (160 . "#ff9da4")
+     (180 . "#ffc58f")
+     (200 . "#ffeead")
+     (220 . "#d1f1a9")
+     (240 . "#99ffff")
+     (260 . "#bbdaff")
+     (280 . "#ebbbff")
+     (300 . "#ff9da4")
+     (320 . "#ffc58f")
+     (340 . "#ffeead")
+     (360 . "#d1f1a9"))))
  '(vc-annotate-very-old-color nil)
  '(window-divider-mode nil))
 (custom-set-faces
@@ -436,4 +511,4 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Monaco" :foundry "nil" :slant normal :weight normal :height 180 :width normal)))))

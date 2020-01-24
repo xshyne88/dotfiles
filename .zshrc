@@ -110,6 +110,8 @@ alias cdperms="cd ~/go/src/github.com/visdocs/permissions"
 alias cdconnect="cd ~/go/src/github.com/visdocs/connectwise"
 alias cdcf="cd ~/Projects/visdocs-client/src/components/CompanyFiles"
 alias cdsa="cd ~/Projects/search-api/lib"
+alias dbreset="rails db:drop db:create db:migrate"
+alias fixdump="standardrb --fix && rails graphql:schema:dump"
 
 alias gs="git status"
 alias ga="git add"
